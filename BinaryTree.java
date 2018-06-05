@@ -14,37 +14,15 @@ public class BinaryTree {
 
 	static Node root;
 	
-	// Recursion
-	
-	public static Node lca(Node root, int data1, int data2)
+	static boolean validateBST(Node root, int min, int max)
 	{
 		if(root==null)
-			return root;
+			return true;
 		
-		if(root.data<data1 && root.data<data2)
-			return lca(root.right, data1, data2);
-		
-		if(root.data>data1 && root.data>data2)
-			return lca(root.left, data1, data2);
-		
-		return root;
-	}
-	
-	//Iterative Version
-	
-	public static Node lca_iterative(Node root, int data1, int data2)
-	{
-	
-	    while(root!=null)
-	    {
-	    		if(root.data<data1 && root.data<data2)
-	    			root = root.right;
-	    		else if(root.data>data1 && root.data>data2)
-	    			root = root.left;
-	    		else
-	    			break;
-	    }	
-	    return root;
+		if(root.data<min || root.data>max)
+			return false;
+			
+		return (validateBST(root.right, root.data+1, max) && validateBST(root.left, min, root.data-1));
 	}
 	
 	public static void main(String[] args) {
@@ -59,9 +37,7 @@ public class BinaryTree {
         tree.root.left.right.left = new Node(10);
         tree.root.left.right.right = new Node(14);
         
-        //Node node = tree.lca(root,10,14);
-	Node node = tree.lca_iterative(root, 10, 14);
-        System.out.println(node.data);
+        System.out.println(validateBST(root,Integer.MIN_VALUE,Integer.MAX_VALUE));
 	}
 
 }
