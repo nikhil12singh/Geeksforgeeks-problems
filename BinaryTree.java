@@ -14,6 +14,8 @@ public class BinaryTree {
 
 	static Node root;
 	
+	// Recursion
+	
 	public static Node lca(Node root, int data1, int data2)
 	{
 		if(root==null)
@@ -28,6 +30,23 @@ public class BinaryTree {
 		return root;
 	}
 	
+	//Iterative Version
+	
+	public static Node lca_iterative(Node root, int data1, int data2)
+	{
+	
+	    while(root!=null)
+	    {
+	    		if(root.data<data1 && root.data<data2)
+	    			root = root.right;
+	    		else if(root.data>data1 && root.data>data2)
+	    			root = root.left;
+	    		else
+	    			break;
+	    }	
+	    return root;
+	}
+	
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 
@@ -40,8 +59,9 @@ public class BinaryTree {
         tree.root.left.right.left = new Node(10);
         tree.root.left.right.right = new Node(14);
         
-        Node node = tree.lca(root,10,14);
-		System.out.println(node.data);
+        //Node node = tree.lca(root,10,14);
+	Node node = tree.lca_iterative(root, 10, 14);
+        System.out.println(node.data);
 	}
 
 }
